@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel = "stylesheet" type = "text/css" href = "https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        
+        <!-- our css file should be placed below all other styles 
+        so that we can overide it -->
+        <link rel="stylesheet" href="/css/home.css">
+    </head>
+    <body>
+        <div id = "to-do-div">
+
+            <h1 id = "header">TODO-APP</h1>
+
+            <form method="POST" action="/add-task">
+                <div id = "desc">
+                    <label for = "description">DESCRIPTION</label><br>
+                    <textarea id = "description" name = "desc" placeholder="what do you need to do?"></textarea>
+                </div>
+                
+                <div id = "category">
+                    <div id = "drop-down-div">
+                        <label for = "category">CATEGORY</label><br>
+                        <select name = "category" id = "category" placeho>
+                            <option value="">--Choose a Category--</option>
+                            <option value="personal">Personal</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                            <option value="college">College</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div id = "date-div">
+                        <label for="to-do-date">DUE DATE</label><br>
+                        <input type="date" id = "to-do-date" name = "date">
+                    </div>
+                </div>
+
+                <div id = "btn-section">
+                    <button type = "submit" class = "form-btn1"><i class="fa fa-plus"></i>ADD TASK</button>
+                    <button class = "form-btn2" form = "delete-form" type = "submit"><i class="fas fa-trash-alt"></i>DELETE TASK</button>
+                </div>
+
+            </form>
+
+            <div id = "task-list-container">
+
+                <form id = "delete-form" action="/delete-task" method="POST">
+                    
+                    <% for(let i of task_list){ %> 
+                        <div id = "task-list">
+                            <div id = "task-list-left">
+                                <input type="checkbox" name = "checkbox" value = "<%= i._id %>">
+                                <!-- <p><a class = "delete-btn" href="/delete-task/?id=<%=i._id%>"><i class="fas fa-window-close"></i></a></p> -->
+                            </div>
+        
+                            <div id = "task-list-middle">
+                                <p><%= i.desc %></p>
+                                <p id = "p2"><i class="fas fa-calendar-alt"></i><%= i.date %></p>
+                            </div>
+        
+                            <div id = "task-list-right">
+                                <p><%= i.category %></p>
+                            </div>
+        
+                        </div>
+                    <% } %>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <script type = "text/javascript" src = "/js/home.js"></script>
+    </body>
+</html>
